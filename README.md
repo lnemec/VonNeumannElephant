@@ -12,5 +12,8 @@ noise that we will add to the data. Third, we will explore the influence of data
 size and noise on the accuracy of the regression model.
 
 ## Julia
+If you like to run the code, you need to install [Julia](https://julialang.org). A
+good introduction [How to install Julia and Pluto | 18.S191 MIT Fall 2020](https://youtu.be/OOjKEgbt8AI) and a
+written version of the tutorial can be found [here](https://computationalthinking.mit.edu/Fall20/installation/)
 
 ## Run the Package
