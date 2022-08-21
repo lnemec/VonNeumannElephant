@@ -51,3 +51,26 @@ function get_elephant(len::Integer, start::Real, stop::Real)
     elephant = zeros(Float64, (len, 3))
     get_elephant!(elephant, len, start, stop)
 end
+
+"""Selcting a subset of data points `points` from the orginal array
+`elephant_full` and the array including noise `elephant_fnoisy` """
+function elephant_subset(points::Integer,
+                    elephant_fnoisy::AbstractMatrix,
+                    elephant_full::AbstractMatrix)
+
+    N_full = size(elephant_full)[1]
+
+    if points == N_full
+        elephant = deepcopy(elephant_fnoisy)
+        elephant_org = deepcopy(elephant_full)
+    else
+        idx = rand(1:N_full,points)
+
+        elephant = deepcopy(elephant_fnoisy[idx,:])
+        elephant = elephant[sortperm(elephant[:, 1]), :]
+
+        elephant_org = deepcopy(elephant_full[idx,:])
+        elephant_org = elephant_org[sortperm(elephant_org[:, 1]), :]
+    end
+    return elephant, elephant_org
+end
