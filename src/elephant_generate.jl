@@ -52,7 +52,7 @@ function get_elephant(len::Integer, start::Real, stop::Real)
     get_elephant!(elephant, len, start, stop)
 end
 
-"""Selcting a subset of data points `points` from the orginal array
+"""Selecting a subset of data points `points` from the original array
 `elephant_full` and the array including noise `elephant_fnoisy` """
 function elephant_subset(points::Integer,
                     elephant_fnoisy::AbstractMatrix,
