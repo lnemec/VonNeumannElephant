@@ -15,3 +15,20 @@ const ELEPHANT_COEFFS = let ps = ELEPHANT_PARAMS
               0 + 0im                       0 + 0im
               0 + 0im                       real(ps[4]) + 0im]
 end
+
+
+function fourier!(out::AbstractMatrix, ts::AbstractVector, coeffs::AbstractVecOrMat)
+    size(out, 1) == length(ts) || error("length of out must match length of ts")
+    size(out, 2) == size(coeffs, 2) || error("out and coeffs must have same number of columns")
+
+    for (col_idx, col) in enumerate(eachcol(coeffs))
+        for (idx, c) in enumerate(col)
+            out[:, col_idx] .+= real(c) .* cos.(idx .* ts) .+ imag(c) .* sin.(idx .* ts)
+        end
+    end
+    return out
+end
+
+function fourier(ts::AbstractVector, coeffs)
+    fourier!(zeros(Float64, (length(ts), size(coeffs, 2))), ts, coeffs)
+end
