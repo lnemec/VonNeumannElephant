@@ -9,7 +9,7 @@ function plot_elephant(elephant)
     p = plot(elephant[:,2], elephant[:,3],
              grid=false,
              legend = false,
-             title = "Von Neumann Elephant",
+             title = "von Neumann Elephant",
              color = "#0044aa",
              showaxis=false,
              xticks=([], []),
@@ -28,7 +28,7 @@ function plot_txy(elephant)
 
     l = @layout([a{0.1h}; [b c; d e]])
 
-    title = plot(title = "Parametric Plot: Von Neumann Elephant",
+    title = plot(title = "Parametric Plot: von Neumann Elephant",
                  grid = false,
                  showaxis = false,
 				 color = "#0044aa",
@@ -77,7 +77,7 @@ function plot_FFTcoeffs(fftcoeffs::AbstractMatrix,
     markers = [:circle :rtriangle :star5 :diamond]
 
     x = collect(range(0, step=1/num_period, length=N÷2))
-    p = plot(title = "Von Neumann Elephant: \n Values of Fourier Coeffients",
+    p = plot(title = "von Neumann Elephant: \n Values of Fourier Coeffients",
              legend= true)
 
     for i in range(1;length=size(idx_coef)[1])
@@ -98,10 +98,10 @@ function plot_noise(elephant, noise, np)
     N = size(elephant)[1]
 
     filename = "img/Noise-Elephant_" * np.noise_type
-    t = "The Noisy Elephant " * "\n" * "Noise Type: " * np.noise_type
+    t = "The Noisy Elephant " * "\n" * "Noise Type: " * np.noise_type * ","
 
     if np.scale != 1.0
-        t = t * " Scale: " * string(np.scale)
+        t = t * " Scale: " * string(np.scale) * ","
         filename = filename * "_" * string(np.scale)
     end
 
