@@ -9,5 +9,6 @@ module VonNeumannElephant
     Random.seed!(20220821)
 
     include("elephant_generate.jl")
+    include("elephant_plot.jl")
 
 end # module
