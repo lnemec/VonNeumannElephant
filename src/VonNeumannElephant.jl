@@ -1,6 +1,5 @@
 module VonNeumannElephant
 
-    # import Distributions: mean, pdf, domain
     import Base
 
     using StaticArrays
