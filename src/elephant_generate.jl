@@ -32,3 +32,22 @@ end
 function fourier(ts::AbstractVector, coeffs)
     fourier!(zeros(Float64, (length(ts), size(coeffs, 2))), ts, coeffs)
 end
+
+"""Creates a full set of N `len` data points `elephant` between the `start` and
+`stop` based on the Fourier reprensentation of the Von Von Neumann Elephant."""
+function get_elephant!(elephant::AbstractMatrix, len::Integer, start::Real, stop::Real)
+    size(elephant) == (len, 3) || error("elephant arr must have size (len, 3), not $(size(elephant))")
+
+    elephant[:,1] .= range(start; stop=stop, length=len)
+
+    v = @view elephant[:, 2:3]
+    fourier!(v, elephant[:,1], ELEPHANT_COEFFS)
+    elephant[:,2] .*= -1
+
+    return elephant
+end
+
+function get_elephant(len::Integer, start::Real, stop::Real)
+    elephant = zeros(Float64, (len, 3))
+    get_elephant!(elephant, len, start, stop)
+end
