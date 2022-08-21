@@ -8,3 +8,5 @@ println("")
 N_full = 1000
 
 elephant_full = VNE.get_elephant(N_full, -pi, pi)
+
+VNE.plot_elephant(elephant_full)
