@@ -10,5 +10,7 @@ module VonNeumannElephant
 
     include("elephant_generate.jl")
     include("elephant_plot.jl")
+    include("elephant_FFTparam.jl")
+    include("elephant_fit.jl")
 
 end # module
