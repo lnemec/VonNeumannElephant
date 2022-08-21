@@ -92,3 +92,74 @@ function plot_FFTcoeffs(fftcoeffs::AbstractMatrix,
     plot!(yticks = (ticks, ticks))
     savefig(p, "img/Fourier-coefficient-values.png")
 end
+
+function plot_noise(elephant, noise, np)
+
+    N = size(elephant)[1]
+
+    filename = "img/Noise-Elephant_" * np.noise_type
+    t = "The Noisy Elephant " * "\n" * "Noise Type: " * np.noise_type
+
+    if np.scale != 1.0
+        t = t * " Scale: " * string(np.scale)
+        filename = filename * "_" * string(np.scale)
+    end
+
+    if np.noise_type == "skewed"
+        t = t * " Shape: " * string(np.shape)
+        filename = filename * "_" * string(np.shape)
+    end
+
+    filename = filename * ".png"
+
+    if N < 500
+        num_bins = 5
+    elseif N÷25 < 50
+        num_bins = N÷25
+    else
+        num_bins = 50
+    end
+
+    l = @layout([a{0.15h}; [b c; d e]])
+
+    title = plot(title = t,
+                 grid = false,
+                 showaxis = false,
+                 xticks=([], []),
+                 yticks=([], []),
+                 bottom_margin = -30Plots.px)
+
+    p1 = plot(elephant[:,1],
+	          elephant[:,2],
+			  title="Data x(t)",
+			  color = "#0044aa")
+    plot!(xticks = ([-π:π:π;], ["-\\pi", "0", "\\pi"]),
+	      xlabel="t",
+		  ylabel="x(t)")
+
+    p2 = histogram(noise[:,1],
+	               bin=num_bins,
+				   normed=true,
+				   fillcolor = "#0044aa",
+				   title="Noise x",
+				   xlabel="Δx")
+
+    p3 = plot(elephant[:,1],
+	          elephant[:,3],
+			  title="Data y(t)",
+			  color = "#0044aa")
+    plot!(xticks = ([-π:π:π;], ["-\\pi", "0", "\\pi"]),
+	      xlabel="t",
+		  ylabel="y(t)")
+
+    p4 = histogram(noise[:,2],
+	               bin=num_bins,
+				   normed=true,
+				   fillcolor = "#0044aa",
+				   title="Noise y",
+				   xlabel="Δy")
+
+    p = plot(title, p1, p2, p3, p4,
+             layout=l, legend =false)
+    savefig(p, filename)
+end

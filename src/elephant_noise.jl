@@ -63,6 +63,8 @@ function noisy_elephant(elephant::AbstractMatrix, np::noise_param)
     noise = generate_noise(dims, np)
     elephant[:,2:d2] = elephant[:,2:d2] .+ noise
 
+    plot_noise(elephant, noise, np)
+
     return noise, elephant
 
 end
