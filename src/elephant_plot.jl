@@ -163,3 +163,31 @@ function plot_noise(elephant, noise, np)
              layout=l, legend =false)
     savefig(p, filename)
 end
+
+function plot_gp_predict(X::Vector{Float64},
+                         y::Vector{Float64},
+                         gp,
+                         filename= "img/test.png")
+
+    X_pred = range(-pi; stop=pi, length=500)
+    y_pred, sigma = predict_y(gp, X_pred)
+
+	N_points = size(X)[1]
+
+    p = plot(title = "Gaussian Process Regression \n Number of points $(N_points)")
+
+    plot!(X_pred,
+	      y_pred,
+		  ribbon=(norminvcdf((1+0.95)/2)*sqrt.(sigma) ),
+		  label="predicted x(t)")
+
+    scatter!(X, y,
+	         markersize=2,
+			 markercolor = "#0044aa",
+			 markerstrokecolor = "#0044aa",
+			 label = "x",
+			 ylabel="x(t)",
+   		     xlabel="t")
+
+    savefig(p, filename)
+end
