@@ -67,3 +67,28 @@ function plot_txy(elephant)
     savefig(p, "img/Parametric-plot-Elephant.png")
     return p
 end
+
+function plot_FFTcoeffs(fftcoeffs::AbstractMatrix,
+                        idx_coef::Vector{Vector{Integer}},
+                        num_period::Integer,
+                        N::Integer)
+
+    labels = ["Ak x" "Bk x" "Ak y" "Bk y"]
+    markers = [:circle :rtriangle :star5 :diamond]
+
+    x = collect(range(0, step=1/num_period, length=N÷2))
+    p = plot(title = "Von Neumann Elephant: \n Values of Fourier Coeffients",
+             legend= true)
+
+    for i in range(1;length=size(idx_coef)[1])
+        # println("idx_coef", " ", i, " ", idx_coef[i], " ", fftcoeffs[idx_coef[i], i])
+        scatter!(x[idx_coef[i]],
+                 fftcoeffs[idx_coef[i], i],
+                 label=labels[i],
+                 m = markers[i])
+    end
+
+    ticks = [-60, -30, -14, -10, 0, 8, 12, 18, 50]
+    plot!(yticks = (ticks, ticks))
+    savefig(p, "img/Fourier-coefficient-values.png")
+end
